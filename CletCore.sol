@@ -56,6 +56,12 @@ contract CLETCORE is Ownable {
         uint256 endDate;
     }
 
+    event NameTransfer(
+        string _name,
+        address indexed _from,
+        address indexed _to
+    );
+
     /// @notice Returns the mapped details of a name.ticker
     /// @dev Returns type of MappedAddress
     function resolve(string memory _name_ticker)
@@ -99,7 +105,9 @@ contract CLETCORE is Ownable {
         deleteMapped(_name, cletname.owner);
         cletname.owner = _newOwner;
         address_OwnedNames[_newOwner].push(_name);
+        address _recentOwner = name_ToOwner[_name];
         name_ToOwner[_name] = _newOwner;
+        emit NameTransfer(_name, _recentOwner, _newOwner);
     }
 
     /// @notice Returns the the owner of a clet name
