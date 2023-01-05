@@ -237,6 +237,15 @@ contract CLETCORE is Ownable {
         doRelease(_address, _name);
     }
 
+    function releaseBatch(
+        address[] memory _addresses,
+        string[] memory _names
+    ) public onlyOwner {
+        for (uint256 index = 0; index < _names.length; index++) {
+            doRelease(_addresses[index], _names[index]);
+        }
+    }
+
     function validatorRelease(
         address _address,
         string memory _name
