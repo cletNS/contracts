@@ -31,7 +31,7 @@ contract CLETCORE is Ownable {
     mapping(string => MappedAddress) private name_ext_ToMap;
     mapping(string => address) private name_ToOwner;
     mapping(string => string) private name_Secret;
-    mapping(address => string) private address_Default;
+    mapping(address => string) public address_Default;
     mapping(address => mapping(string => string)) public address_key_name;
     mapping(address => string[]) public address_OwnedNames;
     mapping(address => string[]) private address_Keys;
