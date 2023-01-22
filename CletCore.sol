@@ -212,6 +212,11 @@ contract CLETCORE is Ownable {
         address_key_name[msg.sender][_key] = "0";
     }
 
+    /// @notice Get initial hash of secret
+    function hash(string memory _secret) public pure returns(string memory) {
+        return keccak256((abi.encodePacked(sha256((abi.encodePacked(_secret))).toHex()))).toHex();
+    }
+
     /// @notice Adds a secret to a name
     function setSecret(
         string memory _hash,
@@ -224,10 +229,9 @@ contract CLETCORE is Ownable {
     function secretIsValid(
         string memory _name,
         string memory _secret
-    ) public view isNameOwner(name_ToOwner[_name.toLower()]) returns (bool) {
+    ) public view returns (bool) {
         bool valid = false;
-        string memory _sHash = keccak256((abi.encodePacked(_secret))).toHex();
-        if (name_Secret[_name].isEqual(_sHash)) {
+        if (name_Secret[_name].isEqual(keccak256((abi.encodePacked(sha256((abi.encodePacked(_secret))).toHex()))).toHex())) {
             valid = true;
         }
         return valid;
