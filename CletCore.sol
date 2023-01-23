@@ -320,10 +320,14 @@ contract CLETCORE is Ownable {
         }
 
         for (uint256 index = 0; index < address_Keys[_owner].length; index++) {
-            delete address_key_name[_owner][address_Keys[_owner][index]];
-            delete address_Keys[_owner][index];
+            if (address_key_name[_owner][address_Keys[_owner][index]].isEqual(_name)){
+                delete address_key_name[_owner][address_Keys[_owner][index]];
+                delete address_Keys[_owner][index];
+            }
         }
-        delete address_Default[_owner];
+        if(address_Default[_owner].isEqual(_name)){
+            delete address_Default[_owner];
+        }
         delete name_Secret[_name];
     }
 
@@ -334,6 +338,17 @@ contract CLETCORE is Ownable {
         string memory _tag
     ) public onlyOwner {
         s_Tickers.push(Ticker(_name, _ticker, _icon, _tag));
+    }
+
+     function addTickerMany(
+        string[] memory _names,
+        string[] memory _tickers,
+        string[] memory _icons,
+        string[] memory _tags 
+    ) public onlyOwner {
+        for (uint256 index = 0; index < _names.length; index++) {
+            s_Tickers.push(Ticker(_names[index], _tickers[index], _icons[index], _tags[index]));
+        }
     }
 
     function updateTicker(
