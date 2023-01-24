@@ -213,8 +213,11 @@ contract CLETCORE is Ownable {
     }
 
     /// @notice Get initial hash of secret
-    function hash(string memory _secret) public pure returns(string memory) {
-        return keccak256((abi.encodePacked(sha256((abi.encodePacked(_secret))).toHex()))).toHex();
+    function hash(string memory _secret) public pure returns (string memory) {
+        return
+            keccak256(
+                (abi.encodePacked(sha256((abi.encodePacked(_secret))).toHex()))
+            ).toHex();
     }
 
     /// @notice Adds a secret to a name
@@ -231,7 +234,17 @@ contract CLETCORE is Ownable {
         string memory _secret
     ) public view returns (bool) {
         bool valid = false;
-        if (name_Secret[_name].isEqual(keccak256((abi.encodePacked(sha256((abi.encodePacked(_secret))).toHex()))).toHex())) {
+        if (
+            name_Secret[_name].isEqual(
+                keccak256(
+                    (
+                        abi.encodePacked(
+                            sha256((abi.encodePacked(_secret))).toHex()
+                        )
+                    )
+                ).toHex()
+            )
+        ) {
             valid = true;
         }
         return valid;
@@ -320,12 +333,16 @@ contract CLETCORE is Ownable {
         }
 
         for (uint256 index = 0; index < address_Keys[_owner].length; index++) {
-            if (address_key_name[_owner][address_Keys[_owner][index]].isEqual(_name)){
+            if (
+                address_key_name[_owner][address_Keys[_owner][index]].isEqual(
+                    _name
+                )
+            ) {
                 delete address_key_name[_owner][address_Keys[_owner][index]];
                 delete address_Keys[_owner][index];
             }
         }
-        if(address_Default[_owner].isEqual(_name)){
+        if (address_Default[_owner].isEqual(_name)) {
             delete address_Default[_owner];
         }
         delete name_Secret[_name];
@@ -340,14 +357,21 @@ contract CLETCORE is Ownable {
         s_Tickers.push(Ticker(_name, _ticker, _icon, _tag));
     }
 
-     function addTickerMany(
+    function addTickerMany(
         string[] memory _names,
         string[] memory _tickers,
         string[] memory _icons,
-        string[] memory _tags 
+        string[] memory _tags
     ) public onlyOwner {
         for (uint256 index = 0; index < _names.length; index++) {
-            s_Tickers.push(Ticker(_names[index], _tickers[index], _icons[index], _tags[index]));
+            s_Tickers.push(
+                Ticker(
+                    _names[index],
+                    _tickers[index],
+                    _icons[index],
+                    _tags[index]
+                )
+            );
         }
     }
 
