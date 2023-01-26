@@ -11,11 +11,11 @@ import "https://github.com/cletNS/interfaces/blob/master/ICletCore.sol";
 import "https://github.com/cletNS/interfaces/blob/master/ICustomResolver.sol";
 import "https://github.com/cletNS/interfaces/blob/master/ICustomNameService.sol";
 
-contract ResolveCletSample {
+contract Example_Clet_Usage {
     /// @dev You can remove constant declarations and add a function to make changes after deploy.
     /// Might be helpful for switching between staging and mainnet.
     address private constant CletCoreContract =
-        0x544702D7Df292544F074Ff468D6132fea42b6d34;
+        0x261Cf6D8b58a9492B8B9b272cF36EF659E1e65b9;
 
     /// @dev Optional: Only use this with 'resolveCustom' & 'reverseCustom' functions
     address private constant CletCustomNameService =
